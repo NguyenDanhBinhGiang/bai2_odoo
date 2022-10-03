@@ -84,3 +84,19 @@ class ProductTemplateInherit(models.Model):
                 product.warrant_year = relativedelta(product.date_to, product.date_from).years
             else:
                 product.warrant_year = 0
+
+    def mass_update_warranty_code(self):
+        """Called by the action in xml, return the wizard form"""
+        ids = [x.id for x in self]
+        view_id = self.env.ref('bai2.mass_update_product_warranty_code_form').id
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Update warranty code',
+            'view_mode': 'form',
+            'view_id': view_id,
+            'res_model': 'product.wizard',
+            'target': 'new',
+            'context': {
+                'default_product_id': [(6, 0, ids)],
+            }
+        }

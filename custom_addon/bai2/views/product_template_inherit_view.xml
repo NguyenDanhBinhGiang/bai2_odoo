@@ -53,6 +53,16 @@
         </field>
     </record>
 
+<!--    Mass update action-->
+    <record id="mass_update_product_form" model="ir.actions.server">
+        <field name="name">Update product warranty code</field>
+        <field name="model_id" ref="model_product_template"/>
+        <field name="binding_model_id" ref="model_product_template"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.mass_update_warranty_code()</field>
+    </record>
+
     <menuitem id="warrant_menu_catalog"
               name="Product Warranty"
               parent="sale.product_menu_catalog"

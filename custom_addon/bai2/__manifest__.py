@@ -13,5 +13,6 @@
         'views/product_template_inherit_view.xml',
         'views/oder_line_inherit.xml',
         'views/order_inherit.xml',
+        'wizard/product_wizard.xml',
     ],
 }

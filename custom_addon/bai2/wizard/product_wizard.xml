@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <record id='mass_update_product_warranty_code_form' model='ir.ui.view'>
+        <field name='name'>Mass update warranty code</field>
+        <field name='model'>product.wizard</field>
+        <field name='arch' type='xml'>
+            <form string="Update Warranty Code">
+                <sheet>
+                    <group>
+                        <field name='new_date_from'/>
+                        <field name='new_date_to'/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string='Update'
+                            type='object'
+                            name='update_product'
+                            class='btn-primary'/>
+                    <button string='Cancel'
+                            class='btn-default'
+                            special='cancel'/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    </data>
+</odoo>

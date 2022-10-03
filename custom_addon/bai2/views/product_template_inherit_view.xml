@@ -39,6 +39,20 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+<!--    Filter-->
+    <record id="product_still_has_warrant_filter" model="ir.ui.view">
+        <field name="name">Active warranty</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_search_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='filter_to_purchase']" position="after">
+                <field name="date_to"/>
+                <filter string="Active warranty" name="active_warrant"
+                        domain="[('date_to','>=',datetime.datetime.now().strftime('%Y-%m-%d 23:23:59'))]"/>
+            </xpath>
+        </field>
+    </record>
+
     <menuitem id="warrant_menu_catalog"
               name="Product Warranty"
               parent="sale.product_menu_catalog"

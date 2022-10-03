@@ -11,5 +11,5 @@ class SaleOrderLineInherit(models.Model):
     def _compute_amount(self):
         super(SaleOrderLineInherit, self)._compute_amount()
         for line in self:
-            line.warrant_discount_amount = line.price_subtotal * (line.product_id.warrant_discount/100)
-            line.price_subtotal -= line.warrant_discount_amount
+            line.warrant_discount_amount = line.price_subtotal * (line.product_id.warrant_discount/100) * -1
+            line.price_total += line.warrant_discount_amount

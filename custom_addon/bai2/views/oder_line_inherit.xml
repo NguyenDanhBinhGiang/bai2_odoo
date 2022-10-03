@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="oder_line_view_inherit" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.event.sale</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[@name='order_lines']//tree/field[@name='price_subtotal']" position="before">
+                <field name="warrant_length" string="Warrant length" optional="show"/>
+                <field name="warrant_discount_amount" string="Warrant discount" widget="monetary" optional="show"/>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

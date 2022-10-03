@@ -1,3 +1,2 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-acl_res_partner,res_partner,model_res_partner,bai1.advanced_sale,1,1,1,1
-acl_customer_wizard,customer_wizard,model_customer_wizard,base.group_system,1,1,1,1
+acl_product_template,product_template,model_product_template,bai2.advanced_sale,1,1,1,1

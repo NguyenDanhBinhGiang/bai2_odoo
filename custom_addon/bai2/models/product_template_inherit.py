@@ -1,5 +1,5 @@
 import datetime
-
+from dateutil.relativedelta import relativedelta
 import odoo.exceptions
 from odoo import models, fields, api
 
@@ -11,11 +11,13 @@ class ProductTemplateInherit(models.Model):
 
     warrant_code = fields.Char("Warranty code",
                                compute='_compute_warrant_code',
-                               inverse='_inverse_warrant_code')
+                               inverse='_set_warrant_code')
     date_from = fields.Date("Warrant From")
     date_to = fields.Date("Warrant To")
+    warrant_discount = fields.Integer("Warrant Discount", compute='_compute_warrant_discount', store=True)
+    warrant_year = fields.Integer("Warrant length in year", compute='_compute_warrant_length')
 
-    def _inverse_warrant_code(self):
+    def _set_warrant_code(self):
         for product in self:
             if product.has_valid_warrant_code():
                 code = str(product.warrant_code).split('/')
@@ -62,3 +64,23 @@ class ProductTemplateInherit(models.Model):
                 product.warrant_code = fr"PWR/{product.date_from.strftime(WARRANT_CODE_DATE_FORMAT)}/{product.date_to.strftime(WARRANT_CODE_DATE_FORMAT)}"
             else:
                 product.warrant_code = False
+
+    @api.depends('date_from', 'date_to')
+    def _compute_warrant_discount(self):
+        today = fields.Date.today()
+        for product in self:
+            if not (product.date_from and product.date_to):
+                product.warrant_discount = 10
+            else:
+                if product.date_from < today < product.date_to:
+                    product.warrant_discount = 0
+                else:
+                    product.warrant_discount = 10
+
+    @api.depends('date_from', 'date_to')
+    def _compute_warrant_length(self):
+        for product in self:
+            if product.date_from and product.date_to:
+                product.warrant_year = relativedelta(product.date_to, product.date_from).years
+            else:
+                product.warrant_year = 0
